@@ -17,6 +17,14 @@ for (const file of commandFiles) {
 }
 
 
+client.on("ready", () => {
+	const time = Date()
+	client.user.setPresence({ activity: { name: `No runnin' in da halls` }, status: 'online' })
+ 		.catch(console.error);
+	console.log(`Ready for operating, started at ${time}`);
+  });
+
+
 client.on('message', message => {
 	if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
