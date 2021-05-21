@@ -5,7 +5,6 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
 
-
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -22,7 +21,7 @@ client.on("ready", () => {
 	client.user.setPresence({ activity: { name: `No runnin' in da halls` }, status: 'online' })
  		.catch(console.error);
 	console.log(`Ready for operating, started at ${time}`);
-  });
+});
 
 
 client.on('message', message => {

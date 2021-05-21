@@ -6,8 +6,7 @@ module.exports = {
     description: 'Reloads a command (developer only)',
     cooldown: 1,
     execute(message, args) {
-
-        if (message.author.id != botconfig.developerid) return message.channel.send("Only my developer can use this command...");
+        if(!botconfig.developerids.includes(message.author.id)) return message.channel.send("Only my developer can use this command...");
         message.channel.send("Developer command confirmed!");
 
         if (!args.length) return message.channel.send(`You didn't pass any command to reload!`);
@@ -15,7 +14,7 @@ module.exports = {
 
         if(message.client.commands.get(commandName)){
             const command = message.client.commands.get(commandName) ||
-            message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+            message.client.commands.find(command => command.aliases && command.aliases.includes(commandName));
 
             if (!command) return message.channel.send(`There is no command with name or alias \`${commandName}\`, ${message.author}!`);
 
