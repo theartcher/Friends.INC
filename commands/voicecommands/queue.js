@@ -21,5 +21,5 @@ module.exports = {
             catch (error) {
                 message.channel.send(`Error: \`${error}\``)
             }    
-    
-}};
+    }
+};

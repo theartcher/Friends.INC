@@ -7,15 +7,15 @@ module.exports = {
     description: 'skip some shit',
     execute (client, message, args)  {
 
-            const string = args.join(" ")
+        const string = args.join(" ")
 
-                if (!message.member.voice.channel) {
-                    return message.channel.send('You must be in a voice channel to use this.')
-                }
-                try {
-                    client.distube.skip(message, string)
-                } catch (error) {
-                    message.channel.send(`Error: \`${error}\``)
-                }    
-        
-}};
+        if (!message.member.voice.channel) {
+            return message.channel.send('You must be in a voice channel to use this.')
+        }
+        try {
+            client.distube.skip(message, string)
+        } catch (error) {
+            message.channel.send(`Error: \`${error}\``)
+        }    
+     }   
+};

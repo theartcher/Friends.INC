@@ -7,29 +7,28 @@ module.exports = {
     execute (client, message, args)  {
 
 
-    if (!message.member.voice.channel) {
-        return message.channel.send('You must be in a voice channel to use this.')
-    }
+        if (!message.member.voice.channel) {
+            return message.channel.send('You must be in a voice channel to use this.')
+        }
+            
+        const string = args.join(" ")
+        client.distube.on("initQueue", queue => {
+            queue.autoplay = false;
+            queue.volume = 100;
+        });
+
+        //Send embed on when next song is active
         
-    const string = args.join(" ")
-    client.distube.on("initQueue", queue => {
-        queue.autoplay = false;
-        queue.volume = 100;
-    });
-
-    //Send embed on when next song is active
-
-    
-    if (!string) {
-        return message.channel.send(`Please enter a song url or query to search.`)
-    }
-    try {
-        client.distube.play(message, string)
-    } catch (error) {
-        message.channel.send(`Error: \`${error}\``)
-    }
-    
-}};
+        if (!string) {
+            return message.channel.send(`Please enter a song url or query to search.`)
+        }
+        try {
+            client.distube.play(message, string)
+        } catch (error) {
+            message.channel.send(`Error: \`${error}\``)
+        }
+    } 
+};
 
 
 

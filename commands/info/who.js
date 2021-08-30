@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-
 module.exports = {
     name: 'who',
     description: 'Display tagged user info',
