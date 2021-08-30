@@ -1,7 +1,7 @@
 module.exports = {
     name: 'id',
     description: 'Display tagged user info',
-    execute(message) {
+    execute(client, message) {
         if (!message.mentions.members.first()) {
             message.reply('missing a user mention.');
         }
