@@ -12,6 +12,9 @@ module.exports = {
         if (!message.member.voice.channel) {
             return message.channel.send('You must be in a voice channel to use this.')
         }
+        if (!client.queue || client.queue.length <= 1) {
+            return message.channel.send('There are no other items in the queue to skip to.')
+        } 
         try {
             client.distube.skip(message, string)
         } 
