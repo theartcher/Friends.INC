@@ -10,15 +10,15 @@ module.exports = {
         if (!message.member.voice.channel) {
             return message.channel.send('You must be in a voice channel to use this.')
         }
-        if (client.distube.isPlaying = false)
-        {
+        const queue = client.distube.getQueue(message);
+
+        if (!queue) {
             message.channel.send(`The current player is empty.`)
             return
         }
         
-        if (client.distube.isPlaying = true) {
-            client.distube.stop(message);
-            message.channel.send("Stopped the queue!");  
-        }
+        client.distube.stop(message);
+        message.channel.send("Stopped the queue!");  
+
     }
 };

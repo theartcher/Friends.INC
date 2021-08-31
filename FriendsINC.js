@@ -1,10 +1,10 @@
 const config = require('./config.json');
 const Discord = require('discord.js');
 const fs = require('fs');
+const client = new Discord.Client()
 const DisTube = require("distube")
-const client = new Discord.Client();
 client.commands = new Discord.Collection();
-client.distube = new DisTube(client, { searchSongs: true, emitNewSongOnly: true, leaveOnFinish: false })
+client.distube = new DisTube.default(client)
 
 //Construct the different folders and define them
 
@@ -65,25 +65,27 @@ client.on('message', message => {
 	
     catch (error) {
 		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+		message.reply('There was an error trying to execute that command!' + '\n Error: ' + error);
 	}
 });
 
 
 //Used to initiate distube client update messages, must remain here.
 
+
+const status = (queue) =>
+	`Volume: \`${queue.volume}%\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? "Server Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``;
+
+
 client.distube
-    .on("playSong", (message, queue, song) => message.channel.send(
-        `Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}`
-    ))
-    .on("addSong", (message, queue, song) => message.channel.send(
-        `Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
-    ))
-    .on("playList", (message, queue, playlist, song) => message.channel.send(
-        `Play \`${playlist.name}\` playlist (${playlist.songs.length} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\``
-    ))
-    .on("addList", (message, queue, playlist) => message.channel.send(
-        `Added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to queue`
-    ))
+	.on("playSong", (queue, song) => queue.textChannel.send(
+		`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
+	))
+	.on("addSong", (queue, song) => queue.textChannel.send(
+		`Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}.`
+	))
+	.on("addList", (queue, playlist) => queue.textChannel.send(
+		`Added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to the queue!`
+	));
 
   client.login(config.token);

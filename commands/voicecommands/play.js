@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
+const { SearchResult } = require('distube');
 const client = new Discord.Client();
 
 module.exports = {
     name: 'play',
     description: 'Play music hoe',
     execute (client, message, args)  {
-
 
         if (!message.member.voice.channel) {
             return message.channel.send('You must be in a voice channel to use this.')
@@ -17,17 +17,19 @@ module.exports = {
             queue.volume = 100;
         });
 
-        //Send embed on when next song is active
-        
         if (!string) {
             return message.channel.send(`Please enter a song url or query to search.`)
         }
         try {
-            client.distube.play(message, string)
-        } catch (error) {
-            message.channel.send(`Error: \`${error}\``)
+            client.distube.playVoiceChannel(message.member.voice.channel, string, {textChannel : message.channel});
         }
-    } 
+        catch (error) {
+            message.channel.send(`${error}`)
+        }
+        if (error = 'Unsupported URL') {
+            return
+        } 
+    }
 };
 
 

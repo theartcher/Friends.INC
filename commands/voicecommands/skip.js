@@ -14,7 +14,8 @@ module.exports = {
         }
         try {
             client.distube.skip(message, string)
-        } catch (error) {
+        } 
+        catch (error) {
             message.channel.send(`Error: \`${error}\``)
         }    
      }   
