@@ -5,6 +5,7 @@ const client = new Discord.Client()
 const DisTube = require("distube")
 client.commands = new Discord.Collection();
 client.distube = new DisTube.default(client)
+client.aliases = new Discord.Collection()
 
 //Construct the different folders and define them
 
@@ -13,6 +14,11 @@ const infoCommands = fs.readdirSync('./commands/info').filter(file => file.endsW
 for (const file of infoCommands) {
     const command = require(`./commands/info/${file}`);
 	client.commands.set(command.name, command);
+	if (command.aliases) {
+		command.aliases.forEach(alias => {
+			client.aliases.set(alias, command)
+		})
+	}
 }
 
 const voicecommands = fs.readdirSync('./commands/voicecommands').filter(file => file.endsWith('.js'));
@@ -20,6 +26,11 @@ const voicecommands = fs.readdirSync('./commands/voicecommands').filter(file => 
 for (const file of voicecommands) {
     const command = require(`./commands/voicecommands/${file}`);
     client.commands.set(command.name, command);
+	if (command.aliases) {
+		command.aliases.forEach(alias => {
+			client.aliases.set(alias, command)
+		})
+	}
 }
 
 const funCommands = fs.readdirSync('./commands/fun').filter(file => file.endsWith('.js'));
@@ -27,7 +38,39 @@ const funCommands = fs.readdirSync('./commands/fun').filter(file => file.endsWit
 for (const file of funCommands) {
     const command = require(`./commands/fun/${file}`);
     client.commands.set(command.name, command);
+	if (command.aliases) {
+		command.aliases.forEach(alias => {
+			client.aliases.set(alias, command)
+		})
+	}
 }
+
+//Try execute on command(message)
+
+
+client.on('message', message => {
+	if (!message.content.startsWith(config.prefix) || message.author.bot) {
+		return;
+	}
+	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+
+	if (!client.commands.has(command) && !client.aliases.has(command)) {
+		return;
+	}
+
+	try {
+		const commandFinal = client.commands.get(command) || client.aliases.get(command) 
+		commandFinal.execute(client, message, args);
+    }
+	
+    catch (error) {
+		console.error(error);
+		message.reply('There was an error trying to execute that command!' + '\n Error: ' + error);
+	}
+});
+
+
 
 //Set presences in console.logs and client
 
@@ -44,29 +87,6 @@ client.once('reconnecting', () => {
 
 client.once('disconnect', () => {
 	console.log('Disconnected!');
-});
-
-//Try execute on command(message)
-
-client.on('message', message => {
-	if (!message.content.startsWith(config.prefix) || message.author.bot) {
-		return;
-	}
-	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
-
-	if (!client.commands.has(command)) {
-		return;
-	}
-
-	try {
-		client.commands.get(command).execute(client, message, args);
-    }
-	
-    catch (error) {
-		console.error(error);
-		message.reply('There was an error trying to execute that command!' + '\n Error: ' + error);
-	}
 });
 
 

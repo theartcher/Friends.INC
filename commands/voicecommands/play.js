@@ -5,6 +5,7 @@ const client = new Discord.Client();
 module.exports = {
     name: 'play',
     description: 'Play music hoe',
+    aliases: ["p"],
     execute (client, message, args)  {
 
         if (!message.member.voice.channel) {

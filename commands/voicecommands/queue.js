@@ -4,7 +4,7 @@ const client = new Discord.Client();
 module.exports = {
     name: 'queue',
     description: 'Show what is currently playing',
-    alias: 'q',
+    aliases: ["q"],
     execute (client, message, args)  {
 
         const string = args.join(" ")
