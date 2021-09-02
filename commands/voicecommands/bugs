@@ -1,0 +1,3 @@
+Jumping to neg number makes bot crash @ errorCode: 'NO_SONG_POSITION'
+Queue clears on empty channel
+Aliases for volume not working

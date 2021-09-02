@@ -19,6 +19,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.6.0",
+    "@distube/spotify": "^0.6.3",
     "discord-ytdl-core": "^5.0.4",
     "discord.js": "^12.5.3",
     "distube": "^3.0.0-beta.36",

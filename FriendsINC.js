@@ -1,12 +1,17 @@
 const config = require('./config.json');
 const Discord = require('discord.js');
 const fs = require('fs');
+const { SpotifyPlugin } = require("@distube/spotify");
 const client = new Discord.Client()
 const DisTube = require("distube")
 client.commands = new Discord.Collection();
-client.distube = new DisTube.default(client)
 client.aliases = new Discord.Collection()
-
+client.distube = new DisTube.default(client, {
+		searchSongs: 10,
+		emitNewSongOnly: true,
+		plugins: [new SpotifyPlugin()],
+	  });
+	  
 //Construct the different folders and define them
 
 const infoCommands = fs.readdirSync('./commands/info').filter(file => file.endsWith('.js'));
@@ -92,17 +97,16 @@ client.once('disconnect', () => {
 
 //Used to initiate distube client update messages, must remain here.
 
-
 const status = (queue) =>
 	`Volume: \`${queue.volume}%\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? "Server Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``;
 
 
 client.distube
 	.on("playSong", (queue, song) => queue.textChannel.send(
-		`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
+		`Playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
 	))
 	.on("addSong", (queue, song) => queue.textChannel.send(
-		`Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}.`
+		`Added ${song.name} - \`${song.formattedDuration}\` to the queue`
 	))
 	.on("addList", (queue, playlist) => queue.textChannel.send(
 		`Added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to the queue!`

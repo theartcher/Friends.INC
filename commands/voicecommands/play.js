@@ -4,7 +4,7 @@ const client = new Discord.Client();
 
 module.exports = {
     name: 'play',
-    description: 'Play music hoe',
+    description: 'Search for a link or string to stream',
     aliases: ["p"],
     execute (client, message, args)  {
 

@@ -2,8 +2,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 module.exports = {
-    name: 'seek',
-    description: 'Search for a different position in the current song',
+    name: 'shuffle',
+    description: 'Shuffle the current queue',
+    aliases: ['randomise'],
     execute (client, message, args)  {
 
         let queue = client.distube.getQueue(message);
@@ -11,17 +12,12 @@ module.exports = {
         if (!message.member.voice.channel) {
             return message.channel.send('You must be in a voice channel to use this.')
         }
-        if (!args[0]) {
-            return message.channel.send(`Please provide a time position to seek to.`)
-        }
-        if (isNaN(args[0])) {
-            return message.channel.send(`Please provide a number in seconds.`) 
-        }
         if (!queue) {
-            return message.channel.send('There are no items playing.')
+            return message.channel.send('There are no songs to shuffle')
         }
         try {
-            client.distube.seek(message, Number(args[0]))
+           queue.shuffle()
+           message.channel.send('The queue has been shuffled.')
         }
         catch (error) {
             message.channel.send('Error:\n'`${error}`)
