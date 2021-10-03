@@ -1,3 +1,10 @@
-Jumping to neg number makes bot crash @ errorCode: 'NO_SONG_POSITION'
+Using !jump to neg number makes bot crash @ errorCode: 'NO_SONG_POSITION'
 Queue clears on empty channel
-Aliases for volume not working
+Aliases for !volume not working
+Add !leave allias to !stop
+Cap !volume @10.000%
+Add skip message when skipped was succesful and autodelete AFTER 10 sec
+Add a leave command (Empty queue => not playing => !stop being undefined -> can't leave)
+Add an !earrape command (Bassboost effect + high volume)
+Add !help command
+Add !volume check if.playing = true (errorcode: errorCode: 'NO_UP_NEXT')
