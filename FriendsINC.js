@@ -67,7 +67,7 @@ client.on('message', message => {
 	try {
 		const commandFinal = client.commands.get(command) || client.aliases.get(command);
 		commandFinal.execute(client, message, args);
-		console.log(client.commands);
+		// console.log(client.commands);
 	}
 
     catch (error) {
@@ -114,4 +114,11 @@ client.distube
 		`Added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to the queue!`,
 	));
 
-  client.login(config.token);
+client.distube.on('error', (channel, error) => {
+	console.error(error);
+	channel.send(`An error encoutered: ${error.slice(0, 1979)}`);
+});
+
+
+
+client.login(config.token);

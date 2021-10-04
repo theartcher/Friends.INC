@@ -1,84 +1,35 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
-const { SearchResult } = require('distube');
 const client = new Discord.Client();
 
 module.exports = {
     name: 'play',
     description: 'Search for a link or string to stream',
-    aliases: ["p"],
-    execute (client, message, args)  {
+    aliases: ['p'],
+    execute(client, message, args) {
 
         if (!message.member.voice.channel) {
-            return message.channel.send('You must be in a voice channel to use this.')
+            return message.channel.send('You must be in a voice channel to use this.');
         }
-            
-        const string = args.join(" ")
-        client.distube.on("initQueue", queue => {
+
+        const string = args.join(' ');
+        client.distube.on('initQueue', queue => {
             queue.autoplay = false;
             queue.volume = 100;
         });
 
         if (!string) {
-            return message.channel.send(`Please enter a song url or query to search.`)
+            return message.channel.send('Please enter a song url or query to search.');
         }
         try {
-            client.distube.playVoiceChannel(message.member.voice.channel, string, {textChannel : message.channel});
+            client.distube.playVoiceChannel(message.member.voice.channel, string, { textChannel : message.channel });
         }
         catch (error) {
-            message.channel.send(`${error}`)
+            message.channel.send(`${error}`);
+            if (error === 'Unsupported URL' || error === 'UNAVAILABLE_VIDEO') {
+                return message.channel.send('The URL is not supported, or the video is restricted.');
+            }
         }
-        if (error = 'Unsupported URL') {
-            return
-        } 
-    }
+    },
 };
-
-
-
-
-
-
-
-
-
-
-//const ytdl = require("discord-ytdl-core");
-//let queue = [];
-
-
-
-// contentInput = message.content.split(' ')
-// console.log(contentInput)
-
-// if (message.author.bot || !message.guild) return;
-
-// if (contentInput[0] === "!play") {
-//     if (!message.member.voice.channel) {
-//         message.channel.send("You're not in a voice channel?");
-//     }
-
-//     queue.push(contentInput[1])
-//     console.log(queue)
-    
-//     let stream = ytdl(queue[0], {
-//         filter: "audioonly",
-//         opusEncoded: true,
-//     });
-//     message.channel.send('Added to the queue!')
-
-// message.member.voice.channel.join()
-//     .then(connection => {
-//         let dispatcher = connection.play(stream, {
-//             type: "opus"
-//         })
-//         .on("finish", () => {
-//             queue.shift()
-//             if (queue.length >= 1) {
-
-//             }
-//             else {
-//                 message.guild.me.voice.channel.leave();
-//             }
-//         })
-//     })
-// }

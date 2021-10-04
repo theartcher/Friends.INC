@@ -7,6 +7,7 @@ const client = new Discord.Client();
 module.exports = {
     name: 'stop',
     description: 'Stop whatever is playing',
+    aliases: ['leave'],
     // eslint-disable-next-line no-shadow
     execute(client, message) {
 
@@ -16,7 +17,7 @@ module.exports = {
         const queue = client.distube.getQueue(message);
 
         if (!queue) {
-            message.channel.send('The current player is empty.');
+            client.voice.channel.leave();
             return;
         }
 
