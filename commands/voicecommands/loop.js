@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -24,7 +25,7 @@ module.exports = {
 
         if (args[0] === 'off') {
             client.distube.setRepeatMode(message, parseInt(0));
-            message.channel.send('Turned off loop')
+            message.channel.send('Turned off loop');
         }
 
         if (args[0] === 'song' || args[0] === 'single') {

@@ -1,27 +1,30 @@
 const Discord = require('discord.js');
+// eslint-disable-next-line no-unused-vars
 const client = new Discord.Client();
 
 module.exports = {
     name: 'autoplay',
-    description: `Toggle autoplay for the client (Find new songs)`,
+    description: 'Toggle autoplay for the client (Find new songs)',
     aliases: ['ap'],
-    execute (client, message, args)  {
+    // eslint-disable-next-line no-shadow
+    execute(client, message) {
 
-        let queue = client.distube.getQueue(message);
+        const queue = client.distube.getQueue(message);
 
             if (!message.member.voice.channel) {
-                return message.channel.send('You must be in a voice channel to use this.')
+                return message.channel.send('You must be in a voice channel to use this.');
             }
             if (!queue) {
-                return message.channel.send(`There isn't an active player.`)
+                // eslint-disable-next-line quotes
+                return message.channel.send(`There isn't an active player.`);
             }
             try {
-                queue.toggleAutoplay(message)
-                message.channel.send(`Toggle autoplay: \`${queue.autoplay}\``)
+                queue.toggleAutoplay(message);
+                message.channel.send(`Toggle autoplay: \`${queue.autoplay}\``);
             }
             catch (error) {
-                message.channel.send(`Error: \`${error}\``)
-                console.log(error)
-            } 
-    }
+                message.channel.send(`Error: \`${error}\``);
+                console.log(error);
+            }
+    },
 };

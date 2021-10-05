@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -5,7 +7,7 @@ module.exports = {
     name: 'shuffle',
     description: 'Shuffle the current queue',
     aliases: ['randomise'],
-    execute (client, message)  {
+    execute(client, message) {
 
         const queue = client.distube.getQueue(message);
 
