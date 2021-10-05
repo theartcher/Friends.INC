@@ -17,7 +17,7 @@ module.exports = {
             if (!queue) {
                 return message.channel.send('There aren\'t any songs playing.');
             }
-            if (args[0] >= 1000) {
+            if (args[0] >= 1000.9999) {
                 return message.channel.send('The volume cannot be set above 1000%.');
             }
             if (!args[0]) {

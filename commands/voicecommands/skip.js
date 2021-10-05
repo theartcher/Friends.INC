@@ -19,7 +19,13 @@ module.exports = {
             return message.channel.send('There are no other items in the queue to skip to.');
         }
         try {
-            client.distube.skip(message, string);
+            if (queue.songs.length >= 2) {
+                client.distube.skip(message, string);
+            }
+            else {
+                // eslint-disable-next-line quotes
+                return message.channel.send(`There aren't any songs to jump to.`);
+            }
         }
         catch (error) {
             message.channel.send(`Error: \`${error}\``);

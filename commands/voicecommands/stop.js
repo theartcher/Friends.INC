@@ -14,11 +14,12 @@ module.exports = {
         if (!message.member.voice.channel) {
             return message.channel.send('You must be in a voice channel to use this.');
         }
+
         const queue = client.distube.getQueue(message);
 
         if (!queue) {
-            client.voice.channel.leave();
-            return;
+            // eslint-disable-next-line quotes
+            return message.channel.send(`There isn't an active queue. Please disconnect manually.`);
         }
 
         client.distube.stop(message);

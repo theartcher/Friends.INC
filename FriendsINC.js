@@ -114,11 +114,4 @@ client.distube
 		`Added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to the queue!`,
 	));
 
-client.distube.on('error', (channel, error) => {
-	console.error(error);
-	channel.send(`An error encoutered: ${error.slice(0, 1979)}`);
-});
-
-
-
 client.login(config.token);
