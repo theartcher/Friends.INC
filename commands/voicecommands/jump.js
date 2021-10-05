@@ -25,11 +25,19 @@ module.exports = {
                 return message.channel.send('Please provide a number to jump to.');
             }
             try {
-                client.distube.jump(message, parseInt(args[0] - 1));
-                message.channel.send(`Jumped to #\`${args[0]}\``);
+
+                if (queue.songs.length >= (args[0]) && (args[0] - 1) >= 1) {
+                    client.distube.jump(message, (args[0] - 1));
+                    message.channel.send(`Jumped to #\`${args[0]}\``);
+                }
+                else {
+                        // eslint-disable-next-line quotes
+                        return message.channel.send(`This isn't a valid position to jump to`);
+                    }
+
             }
             catch (error) {
-                message.channel.send(`Error: \`${error}\``);
+                // message.channel.send(`Error: \`${error}\``);
                 console.log(error);
             }
     },
