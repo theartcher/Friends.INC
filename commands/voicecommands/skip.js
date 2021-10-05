@@ -21,6 +21,10 @@ module.exports = {
         try {
             if (queue.songs.length >= 2) {
                 client.distube.skip(message, string);
+                message.channel.send('Skipped! 📣')
+                    .then(message => {
+                        setTimeout(() => message.delete(), 5000);
+                    });
             }
             else {
                 // eslint-disable-next-line quotes
