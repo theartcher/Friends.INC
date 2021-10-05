@@ -10,6 +10,8 @@ client.distube = new DisTube.default(client, {
 		searchSongs: 10,
 		emitNewSongOnly: true,
 		plugins: [new SpotifyPlugin()],
+		leaveOnEmpty: true,
+		emptyCooldown: 60,
 	});
 
 // Construct the different folders and define them

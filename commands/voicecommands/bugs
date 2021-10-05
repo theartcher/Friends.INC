@@ -1,5 +1,6 @@
 SERVER ISSUES:
 
+Certain crashes need fixing, unable to fix as of right now
 
 KNOWN BUGS: 
 
@@ -9,7 +10,6 @@ Add skip message when skipped was succesful and autodelete AFTER 10 sec
 Add a leave command (Empty queue => not playing => !stop being undefined -> can't leave)
 Add an !earrape command (Bassboost effect + high volume)
 Add !help command
-Add !volume check if.playing = true (errorcode: errorCode: 'NO_UP_NEXT')
 Seeking to a position outside the song makes the bot get stuck in a loop
 
 BUG FIXES;
