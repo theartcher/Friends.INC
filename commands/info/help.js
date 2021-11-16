@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { MessageEmbed } = require('discord.js');
+const config = require('../../config.json');
 
 module.exports = {
     name: 'help',
@@ -12,8 +13,8 @@ module.exports = {
             .setDescription('Here you can find all our (listed) working commands.')
             .addField('Voice Commands', 'autoplay, effect, jump, loop, nowplaying, pause, play, queue, resume, seek, shuffle, skip, stop, volume', false)
             .addField('Regular Commands', 'id, ping, help, version, who', false)
-            .setTimestamp();
-
+            .setTimestamp()
+            .setFooter(`Currenly running; ${config.version}`);
             message.channel.send(helpEmbed);
 
     },

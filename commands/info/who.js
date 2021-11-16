@@ -1,39 +1,39 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 module.exports = {
     name: 'who',
     description: 'Display tagged user info',
     execute(client, message, args) {
             if (!args) {
-                message.reply('You need to mention a user.')
-                return
+                message.reply('You need to mention a user.');
+                return;
             }
 
             try {
 
-                let mentionedUser = message.mentions.users.first()
-                let userTag = mentionedUser.tag
-                let userID = mentionedUser.id
-                let userCreationDate = mentionedUser.createdAt
-                let userCreationTime = Math.round((Date.now() - mentionedUser.createdTimestamp)/(1000*60*60*24*12))
+                const mentionedUser = message.mentions.users.first();
+                const userTag = mentionedUser.tag;
+                const userID = mentionedUser.id;
+                const userCreationDate = mentionedUser.createdAt;
+                const userCreationTime = Math.round((Date.now() - mentionedUser.createdTimestamp) / (1000 * 60 * 60 * 24 * 12));
                 const whoEmbed = new Discord.MessageEmbed()
                     .setColor('#47f598')
                     .setTitle(userTag)
                     .setImage(mentionedUser.avatarURL())
-                    .addField(`User info`,`**User ID>** ${userID} \n **Account creation date>** ${userCreationDate}`)
-                    .addField(`Account creation date`,`${userCreationDate}`)
-                    .addField(`Account age`,`${userCreationTime} months old`)
-                    
+                    .addField('User info', `**User ID:** ${userID} \n **Account creation date:** ${userCreationDate}`)
+                    .addField('Account creation date', `${userCreationDate}`)
+                    .addField('Account age', `${userCreationTime} months old`);
 
 
-                message.channel.send(whoEmbed)
+
+                message.channel.send(whoEmbed);
             }
-            
+
 
             catch (error) {
-                message.reply(`An error occured during this command!`)
-                console.error(error)
+                message.reply('An error occured during this command!');
+                console.error(error);
             }
-    }
+    },
 };
 
 

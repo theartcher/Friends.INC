@@ -12,6 +12,8 @@ client.distube = new DisTube.default(client, {
 		plugins: [new SpotifyPlugin()],
 		leaveOnEmpty: true,
 		emptyCooldown: 60,
+		updateYouTubeDL: false,
+		leaveOnFinish: true,
 	});
 
 // Construct the different folders and define them
